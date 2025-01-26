@@ -5,3 +5,4 @@ taxi_zone_lookup.csv
 temp
 tf/*
 !tf/main.tf
+.gitignore

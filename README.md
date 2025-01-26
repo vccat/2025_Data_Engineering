@@ -1,4 +1,4 @@
-# Project Data Engineering Zoomcamp 2005
+# Project Data Engineering Zoomcamp 2025
 
 ## Module 1 Homework Docker & SQL
 
@@ -15,34 +15,47 @@
 **Question 3. Trip Segmentation Count**
 
 * Up to 1 mile
-
+        
         SELECT count(*)
         FROM green_taxi
-        WHERE trip_distance <=1;
+        WHERE lpep_pickup_datetime >= '2019-10-01'
+        AND lpep_pickup_datetime < '2019-11-01'
+        AND trip_distance <=1;
 
 * In between 1 (exclusive) and 3 miles (inclusive)
   
         SELECT count(*)
         FROM green_taxi
-        WHERE trip_distance > 1 
+        WHERE lpep_pickup_datetime >= '2019-10-01'
+        AND lpep_pickup_datetime < '2019-11-01'
+        AND trip_distance > 1 
         AND trip_distance <= 3;
+
 * In between 3 (exclusive) and 7 miles (inclusive)
 
         SELECT count(*)
         FROM green_taxi
-        WHERE trip_distance > 3
+        WHERE lpep_pickup_datetime >= '2019-10-01'
+        AND lpep_pickup_datetime < '2019-11-01'
+        AND trip_distance > 3
         AND trip_distance <= 7;
+
 * In between 7 (exclusive) and 10 miles (inclusive)
 
         SELECT count(*)
         FROM green_taxi
-        WHERE trip_distance > 7
+        WHERE lpep_pickup_datetime >= '2019-10-01'
+        AND lpep_pickup_datetime < '2019-11-01'
+        AND trip_distance > 7
         AND trip_distance <= 10;
+
 * Over 10 miles
 
         SELECT count(*)
         FROM green_taxi
-        WHERE trip_distance > 10;
+        WHERE lpep_pickup_datetime >= '2019-10-01'
+        AND lpep_pickup_datetime < '2019-11-01'
+        AND trip_distance > 10;
 
 **Question 4. Longest trip for each day**
 
