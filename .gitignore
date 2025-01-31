@@ -6,3 +6,4 @@ temp
 tf/*
 !tf/main.tf
 .gitignore
+kestra_flows/
