@@ -13,8 +13,8 @@ provider "google" {
   region      = "europe-west3"
 }
 
-resource "google_storage_bucket" "bucket0" {
-  name          = "dezoomcamp2025-448509-bucket0"
+resource "google_storage_bucket" "bucket_module03" {
+  name          = "dezoomcamp2025-448509-bucket03"
   location      = "EU"
   force_destroy = true
 
@@ -25,5 +25,16 @@ resource "google_storage_bucket" "bucket0" {
     action {
       type = "AbortIncompleteMultipartUpload"
     }
+  }
+}
+
+resource "google_bigquery_dataset" "dataset_module03" {
+  dataset_id                  = "dezoomamp_dataset03"  
+  friendly_name               = "Dataset_module03"  
+  description                 = "This is the dataset used for zoomcamp module 03."
+  location                    = "EU"     
+
+  labels = {
+    env = "zoomcamp"
   }
 }
