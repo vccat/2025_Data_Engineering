@@ -171,3 +171,11 @@
 >When querying the partitioned and clustered table and filering based on the column that is used for clustering, the byte estimation is smaller than querying the whole table, but not by much.
 
 </details>
+
+<details>
+  <summary>Dlt Workshop Homework</summary>
+
+## Workshop "Data Ingestion with dlt" 
+>ws_dlt_pipeline.py
+
+</details>

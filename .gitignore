@@ -1,9 +1,11 @@
-.ipynb_checkpoints/
+.ipynb_checkpoints/*
 DB_files/*
 green_tripdata_2019-10.csv
 taxi_zone_lookup.csv
 temp
 tf/*
-!tf/main.tf
 .gitignore
-kestra_flows/
+kestra_flows/*
+nonofurbiz/*
+tmp/*
+
