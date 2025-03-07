@@ -179,3 +179,78 @@
 >ws_dlt_pipeline.py
 
 </details>
+
+<details>
+  <summary>Module 5 Homework</summary>
+
+**Question 1: Install Spark and PySpark**
+>3.5.5
+
+**Question 2: Yellow October 2024**
+
+    import pyspark
+    from pyspark.sql import SparkSession
+    from pyspark.sql import functions as F
+
+    spark = SparkSession.builder \
+                .master("local[*]") \
+                .appName('test') \
+                .getOrCreate()
+    wget https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-10.parquet
+
+    df = spark.read \
+        .option("header", "true") \
+        .parquet('yellow_tripdata_2024-10.parquet')
+    df = df.repartition(4)
+    df.write.parquet('/home/carrie/mydata/yellow_taxi/2024/10/')
+
+>25MB
+
+**Question 3: Count records**
+
+    oct15_tripcount = df.filter(F.to_date("tpep_pickup_datetime") == "2024-10-15").count()
+
+>128893
+
+**Question 4: Longest trip**
+
+    df = df.withColumn("trip_duration_hours",
+        (
+            F.unix_timestamp("tpep_dropoff_datetime") - F.unix_timestamp("tpep_pickup_datetime")
+        ) / 3600
+    )   
+
+    df = df.filter(F.col("trip_duration_hours") > 0)
+    longest_trip_row = df.orderBy(F.col("trip_duration_hours").desc()).first()
+>162
+
+**Question 5: User Interface***
+>port 4040
+
+**Question 6: Least frequent pickup location zone**
+
+    !wget https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv
+
+    df_zone = spark.read \
+        .option("header", "true") \
+        .csv('taxi_zone_lookup.csv')
+
+    df_taxi = df.join( 
+            df_zone,
+            df["PULocationID"] == df_zone["LocationID"], "left"
+            )
+
+    df_taxi = df_taxi.withColumnRenamed("Zone", "PUZone") \
+                .withColumnRenamed("Borough", "PUBorough") \
+                .drop(df_zone["LocationID"]) 
+
+    zone_frequency = df_taxi.groupBy("PUZone") \
+                        .agg(F.count("*").alias("trip_count")) \
+                        .orderBy("trip_count") \
+                        .filter(F.col("PUZone"))
+
+    least_frequent_zone = zone_frequency.filter(F.col("PUZone").isNotNull()).first()
+    print(least_frequent_zone.PUZone)
+
+>Governor's Island/Ellis Island/Liberty Island
+</details>
