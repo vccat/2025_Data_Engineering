@@ -38,3 +38,29 @@ resource "google_bigquery_dataset" "dataset_module03" {
     env = "zoomcamp"
   }
 }
+
+resource "google_storage_bucket" "bucket_zoomcamp" {
+  name          = "dezoomcamp2025-448509-taxi"
+  location      = "EU"
+  force_destroy = true
+
+  lifecycle_rule {
+    condition {
+      age = 1
+    }
+    action {
+      type = "AbortIncompleteMultipartUpload"
+    }
+  }
+}
+
+resource "google_bigquery_dataset" "ds_ny_taxi" {
+  dataset_id                  = "dezoomamp_ny_taxi"  
+  friendly_name               = "ny_taxi"  
+  description                 = "This is the dataset used for zoomcamp."
+  location                    = "EU"     
+
+  labels = {
+    env = "zoomcamp"
+  }
+}
