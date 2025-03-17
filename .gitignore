@@ -9,3 +9,4 @@ kestra_flows/*
 nonofurbiz/*
 tmp/*
 05_batch_processing/*
+*.ipynb

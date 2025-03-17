@@ -254,3 +254,51 @@
 
 >Governor's Island/Ellis Island/Liberty Island
 </details>
+
+
+<details>
+  <summary>Module 6 Homework</summary>
+
+**Question 1: Redpanda version**
+
+    docker exec -it redpanda-1 bash
+    rpk --version
+
+>Output:\
+>rpk version v24.2.18 (rev f9a22d4430)
+
+**Question 2. Creating a topic**
+
+    rpk topic create green-trips --partitions 3 --replicas 1
+
+>TOPIC        STATUS \
+>green-trips  OK
+
+**Question 3. Connecting to the Kafka server**
+
+>Output:\
+>       True
+
+**Question 4: Sending the Trip Data**
+>Total time taken: 160.17 seconds
+
+**Question 5: Build a Sessionization Window**
+
+    SELECT
+        PULocationID,
+        DOLocationID,
+        MAX(trip_count) AS max_trips_in_streak
+        FROM taxi_session_aggregation
+        GROUP BY PULocationID, DOLocationID
+        ORDER BY max_trips_in_streak DESC
+        LIMIT 1;
+
+>Output: \
+>+--------------+--------------+---------------------+ \
+>| pulocationid | dolocationid | max_trips_in_streak | \
+>|--------------+--------------+---------------------| \
+>| 95           | 95           | 44                  | \
+>+--------------+--------------+---------------------+
+
+> Location 95 is Forest Hills.
+</details>
